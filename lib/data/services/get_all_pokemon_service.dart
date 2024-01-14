@@ -10,14 +10,11 @@ class GetAllPokemonService {
   final Dio _dio = Dio();
 
   Future<PokemonAllModel?> getAllPokemon() async {
-    // String endPoint = "";
-
     try {
       var response = await _dio.get(baseUrl);
 
       if (response.statusCode == 200) {
         var resultPokemon = PokemonAllModel.fromJson(response.data);
-
         return resultPokemon;
       } else {
         log("Error ${response.statusCode}");

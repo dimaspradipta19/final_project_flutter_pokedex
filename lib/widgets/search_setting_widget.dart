@@ -36,6 +36,7 @@ class SearchSettingWidget extends StatelessWidget {
                   ),
                 ),
                 readOnly: true,
+                onTap: () => Navigator.pushNamed(context, "/searchscreen"),
               ),
             ),
           ),

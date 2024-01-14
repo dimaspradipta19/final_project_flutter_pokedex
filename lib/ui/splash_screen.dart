@@ -1,6 +1,8 @@
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/version_widget.dart';
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -28,12 +30,13 @@ class SplashScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/pokemon_logo.png",
-                    width: 90.0,
-                    height: 90.0,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Image.asset(
+                      "assets/images/pokemon_logo.png",
+                    ),
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 40.0),
                   const CircularProgressIndicator.adaptive(
                     backgroundColor: whiteColor,
                   )
@@ -42,32 +45,6 @@ class SplashScreen extends StatelessWidget {
             ),
             const VersionWidget(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class VersionWidget extends StatelessWidget {
-  const VersionWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Positioned(
-      bottom: 40.0,
-      left: 0,
-      right: 0,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Text(
-          "Versi 4.3.3",
-          style: TextStyle(
-              color: whiteColor,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              fontStyle: FontStyle.italic),
         ),
       ),
     );

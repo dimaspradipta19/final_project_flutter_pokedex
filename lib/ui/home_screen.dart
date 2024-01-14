@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
+import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:final_projects_pokemon/widgets/slider_hero_widget.dart';
@@ -23,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<GetAllPokemonProvider>(context, listen: false)
           .getAllPokemonData();
+      // Provider.of<GetNamePokemonProvider>(context, listen: false)
+      //     .getNamePokemon();
     });
   }
 
@@ -77,29 +82,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         valueAllPokemon.pokemonData?.results.length ?? 10,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Row(
-                            children: [
-                              Image.network(
-                                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"),
-                              const SizedBox(width: 20.0),
-                              Column(
-                                children: [
-                                  Text(
-                                    "${valueAllPokemon.pokemonData?.results[index].name}",
-                                    style: myTextTheme.bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "${valueAllPokemon.pokemonData?.results[index].name}",
-                                    style: myTextTheme.bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
+                      return InkWell(
+                        onTap: () {
+                          log("Pokemon Detail ${index + 1}");
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              children: [
+                                Image.network(
+                                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"),
+                                const SizedBox(width: 20.0),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "${valueAllPokemon.pokemonData?.results[index].name}",
+                                      style: myTextTheme.bodyMedium?.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "${valueAllPokemon.pokemonData?.results[index].name}",
+                                      style: myTextTheme.bodyMedium?.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -117,9 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   );
                 } else {
-                  return Container(
-                    child: const Text("Data kosong"),
-                  );
+                  return const Text("Data kosong");
                 }
               },
             ),
