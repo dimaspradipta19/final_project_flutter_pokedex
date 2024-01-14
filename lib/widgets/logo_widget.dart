@@ -10,8 +10,10 @@ class LogoWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 28.0, bottom: 12.0),
       child: Center(
-        child: Image.asset("assets/images/pokemon_logo.png",
-            width: 247.0, height: 92),
+        child: Image.asset(
+          "assets/images/pokemon_logo.png",
+          width: 120,
+        ),
       ),
     );
   }

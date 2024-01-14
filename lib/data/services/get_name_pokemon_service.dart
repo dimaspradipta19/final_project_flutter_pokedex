@@ -17,7 +17,7 @@ class GetNamePokemonService {
 
       if (response.statusCode == 200) {
         var resultNamePokemon = NamePokemonModel.fromJson(response.data);
-        return NamePokemonModel.fromJson(response.data);
+        return resultNamePokemon;
       } else {
         log("Error ${response.statusCode}");
       }

@@ -28,7 +28,7 @@ class NamePokemonModel {
   final List<dynamic> pastTypes;
   final Species species;
   final Sprites sprites;
-  // final List<Stat> stats;
+  final List<Stat> stats;
   // final List<Type> types;
   final int weight;
 
@@ -49,7 +49,7 @@ class NamePokemonModel {
     required this.pastTypes,
     required this.species,
     required this.sprites,
-    // required this.stats,
+    required this.stats,
     // required this.types,
     required this.weight,
   });
@@ -76,7 +76,7 @@ class NamePokemonModel {
         pastTypes: List<dynamic>.from(json["past_types"].map((x) => x)),
         species: Species.fromJson(json["species"]),
         sprites: Sprites.fromJson(json["sprites"]),
-        // stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
+        stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
         // types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
         weight: json["weight"] ?? 0,
       );
@@ -98,7 +98,7 @@ class NamePokemonModel {
         "past_types": List<dynamic>.from(pastTypes.map((x) => x)),
         "species": species.toJson(),
         "sprites": sprites.toJson(),
-        // "stats": List<dynamic>.from(stats.map((x) => x.toJson())),
+        "stats": List<dynamic>.from(stats.map((x) => x.toJson())),
         // "types": List<dynamic>.from(types.map((x) => x.toJson())),
         "weight": weight,
       };
@@ -714,29 +714,29 @@ class Home {
 //       };
 // }
 
-// class Stat {
-//   final int baseStat;
-//   final int effort;
-//   final Species stat;
+class Stat {
+  final int baseStat;
+  final int effort;
+  final Species stat;
 
-//   Stat({
-//     required this.baseStat,
-//     required this.effort,
-//     required this.stat,
-//   });
+  Stat({
+    required this.baseStat,
+    required this.effort,
+    required this.stat,
+  });
 
-//   factory Stat.fromJson(Map<String, dynamic> json) => Stat(
-//         baseStat: json["base_stat"] ?? 0,
-//         effort: json["effort"] ?? 0,
-//         stat: Species.fromJson(json["stat"]),
-//       );
+  factory Stat.fromJson(Map<String, dynamic> json) => Stat(
+        baseStat: json["base_stat"] ?? 0,
+        effort: json["effort"] ?? 0,
+        stat: Species.fromJson(json["stat"]),
+      );
 
-//   Map<String, dynamic> toJson() => {
-//         "base_stat": baseStat,
-//         "effort": effort,
-//         "stat": stat.toJson(),
-//       };
-// }
+  Map<String, dynamic> toJson() => {
+        "base_stat": baseStat,
+        "effort": effort,
+        "stat": stat.toJson(),
+      };
+}
 
 // class Type {
 //   final int slot;

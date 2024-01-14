@@ -1,5 +1,6 @@
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+import 'package:final_projects_pokemon/ui/detail_screen.dart';
 import 'package:final_projects_pokemon/ui/home_screen.dart';
 import 'package:final_projects_pokemon/ui/search_screen.dart';
 import 'package:final_projects_pokemon/ui/splash_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           "/splashscreen": (context) => const SplashScreen(),
           "/homescreen": (context) => const HomeScreen(),
           "/searchscreen": (context) => const SearchScreen(),
+          "/detailscreen": (context) => const DetailScreen(),
         },
       ),
     );
