@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:final_projects_pokemon/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/styles_guide.dart';
@@ -36,7 +37,11 @@ class SearchSettingWidget extends StatelessWidget {
                   ),
                 ),
                 readOnly: true,
-                onTap: () => Navigator.pushNamed(context, "/searchscreen"),
+                onTap: () => Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return const SearchScreen();
+                  },
+                )),
               ),
             ),
           ),

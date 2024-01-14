@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
+import 'package:final_projects_pokemon/ui/detail_screen.dart';
 // import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
@@ -103,8 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          log("Pokemon Detail ${index + 1}");
-                          Navigator.pushNamed(context, "/detailscreen");
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return DetailScreen(
+                                  namePokemon: valueAllPokemon
+                                      .pokemonData!.results[index].name);
+                            },
+                          ));
                         },
                         child: FutureBuilder(
                           future: PaletteGenerator.fromImageProvider(
@@ -140,7 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             style: myTextTheme.bodyMedium
                                                 ?.copyWith(
                                                     fontWeight: FontWeight.bold,
-                                                    color: secondaryColor),
+                                                    fontSize: 20,
+                                                    color: whiteColor),
                                           ),
                                         ],
                                       ),

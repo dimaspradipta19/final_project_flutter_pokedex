@@ -65,7 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     onPressed: () {
                       Provider.of<GetNamePokemonProvider>(context,
                               listen: false)
-                          .getNamePokemon();
+                          .getNamePokemon(_searchController.text);
 
                       var test = Provider.of<GetNamePokemonProvider>(context,
                           listen: false);
@@ -93,6 +93,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   Text(valueNamePokemon.dataNamePokemon?.weight.toString() ??
                       "Kosong"),
                   Text(valueNamePokemon.dataNamePokemon?.id.toString() ??
+                      "Kosong"),
+                  Text(valueNamePokemon.dataNamePokemon?.stats[0].baseStat
+                          .toString() ??
                       "Kosong"),
                 ],
               );

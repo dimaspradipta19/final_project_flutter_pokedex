@@ -10,11 +10,11 @@ class GetNamePokemonProvider extends ChangeNotifier {
   GetNamePokemonService service = GetNamePokemonService();
   ResultState state = ResultState.noData;
 
-  Future<dynamic> getNamePokemon() async {
+  Future<dynamic> getNamePokemon(String namePokemon) async {
     try {
       state = ResultState.isLoading;
       notifyListeners();
-      dataNamePokemon = await service.getNamePokemon();
+      dataNamePokemon = await service.getNamePokemon(namePokemon);
       if (dataNamePokemon != null) {
         state = ResultState.hasData;
         notifyListeners();

@@ -1,11 +1,12 @@
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
-import 'package:final_projects_pokemon/ui/detail_screen.dart';
-import 'package:final_projects_pokemon/ui/home_screen.dart';
-import 'package:final_projects_pokemon/ui/search_screen.dart';
+// import 'package:final_projects_pokemon/ui/detail_screen.dart';
+// import 'package:final_projects_pokemon/ui/home_screen.dart';
+// import 'package:final_projects_pokemon/ui/search_screen.dart';
 import 'package:final_projects_pokemon/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/main.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,13 +54,13 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const SplashScreen(),
-        initialRoute: "/",
-        routes: {
-          "/splashscreen": (context) => const SplashScreen(),
-          "/homescreen": (context) => const HomeScreen(),
-          "/searchscreen": (context) => const SearchScreen(),
-          "/detailscreen": (context) => const DetailScreen(),
-        },
+        // initialRoute: "/",
+        // routes: {
+        //   "/splashscreen": (context) => const SplashScreen(),
+        //   "/homescreen": (context) => const HomeScreen(),
+        //   "/searchscreen": (context) => const SearchScreen(),
+        //   "/detailscreen": (context) => const DetailScreen(namePokemon: namePokemon),
+        // },
       ),
     );
   }

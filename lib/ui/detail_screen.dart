@@ -1,8 +1,28 @@
+import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+class DetailScreen extends StatefulWidget {
+  const DetailScreen({super.key, required this.namePokemon});
+
+  final String namePokemon;
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<GetNamePokemonProvider>(context, listen: false)
+          .getNamePokemon(widget.namePokemon);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,152 +31,260 @@ class DetailScreen extends StatelessWidget {
         title: const Text("Detail Screen pokemon"),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(160.0),
-                      bottomRight: Radius.circular(160.0)),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 300.0,
-                    decoration: const BoxDecoration(
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    color: blueColor1,
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              "POKEMON",
-              style:
-                  myTextTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Row(
-                    children: [
-                      Icon(Icons.stacked_bar_chart),
-                      Text("Abilities"),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Row(
-                    children: [
-                      Icon(Icons.stacked_bar_chart),
-                      Text("Abilities"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-            const SizedBox(height: 20.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
+        child: Consumer<GetNamePokemonProvider>(
+          builder: (context, GetNamePokemonProvider valueNamePokemon, child) {
+            if (valueNamePokemon.state == ResultState.isLoading) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            } else if (valueNamePokemon.state == ResultState.hasData) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Height:"),
-                        Container(
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(160.0),
+                            bottomRight: Radius.circular(160.0)),
+                        child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 39.0,
-                          decoration: BoxDecoration(
-                            color: greyColor0,
-                            border: Border.all(color: blackColor),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
+                          height: 300.0,
+                          decoration: const BoxDecoration(
+                            color: primaryColor,
                           ),
-                          child: Text("100cm"),
                         ),
-                      ],
+                      ),
+                      Center(
+                        child: Image.network(
+                          valueNamePokemon.dataNamePokemon!.sprites.other
+                              .officialArtwork.frontDefault,
+                          height: 300,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //Name Pokemon
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      valueNamePokemon.dataNamePokemon!.name,
+                      style: myTextTheme.headlineMedium!.copyWith(
+                          fontWeight: FontWeight.bold, fontSize: 38.0),
                     ),
                   ),
-                  const SizedBox(width: 20),
-                  Expanded(
+                  // Type pokemon
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      "Type:",
+                      style: myTextTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 12.0),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            valueNamePokemon.dataNamePokemon!.types.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Chip(
+                              backgroundColor: secondaryColor,
+                              label: Text(valueNamePokemon
+                                  .dataNamePokemon!.types[index].type.name),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  // Abilities pokemon
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      "Abilitites:",
+                      style: myTextTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 12.0),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            valueNamePokemon.dataNamePokemon!.abilities.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Chip(
+                              backgroundColor: secondaryColor,
+                              label: Text(valueNamePokemon.dataNamePokemon!
+                                  .abilities[index].ability.name),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+
+                  // Statistic
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Weight:"),
-                        Container(
+                        Text(
+                          "Statistic:",
+                          style: myTextTheme.bodyLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 39.0,
-                          decoration: BoxDecoration(
-                              color: greyColor0,
-                              border: Border.all(color: blackColor),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount:
+                                valueNamePokemon.dataNamePokemon!.stats.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(valueNamePokemon
+                                          .dataNamePokemon!
+                                          .stats[index]
+                                          .stat
+                                          .name),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        valueNamePokemon.dataNamePokemon!
+                                            .stats[index].baseStat
+                                            .toString(),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 6,
+                                      child: LinearPercentIndicator(
+                                        animation: true,
+                                        lineHeight: 20.0,
+                                        animationDuration: 2500,
+                                        percent: valueNamePokemon
+                                                .dataNamePokemon!
+                                                .stats[index]
+                                                .baseStat /
+                                            100,
+                                        progressColor: Colors.green,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
                   ),
+                  // Height and Weight Pokemon
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 20.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 1.0,
+                      color: greyColor1,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Height:",
+                                style: myTextTheme.bodyLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 20.0),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 39.0,
+                                decoration: BoxDecoration(
+                                  color: greyColor0,
+                                  border: Border.all(color: blackColor),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(valueNamePokemon
+                                      .dataNamePokemon!.height
+                                      .toString()),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Weight:",
+                                style: myTextTheme.bodyLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 20.0),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 39.0,
+                                decoration: BoxDecoration(
+                                  color: greyColor0,
+                                  border: Border.all(color: blackColor),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(valueNamePokemon
+                                      .dataNamePokemon!.weight
+                                      .toString()),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10.0),
                 ],
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Height:"),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 39.0,
-                          decoration: BoxDecoration(
-                              color: greyColor0,
-                              border: Border.all(color: blackColor),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Weight:"),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 39.0,
-                          decoration: BoxDecoration(
-                              color: greyColor0,
-                              border: Border.all(color: blackColor),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+              );
+            } else {
+              return const Text("Data Kosong");
+            }
+          },
         ),
       ),
     );
