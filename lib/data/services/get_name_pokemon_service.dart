@@ -10,9 +10,9 @@ class GetNamePokemonService {
   final Dio _dio = Dio();
 
   Future<NamePokemonModel?> getNamePokemon(String namePokemon) async {
+    NamePokemonModel? namePokemonModel;
     try {
       Response response = await _dio.get("$baseUrl$namePokemon");
-
 
       if (response.statusCode == 200) {
         var resultNamePokemon = NamePokemonModel.fromJson(response.data);
@@ -23,6 +23,6 @@ class GetNamePokemonService {
     } catch (e) {
       log("Error ni bro di service name pokemon ${e.toString()}");
     }
-    return null;
+    return namePokemonModel;
   }
 }

@@ -56,7 +56,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#FFCB05"
   image: assets/images/pokemon_logo.png
   android: true
   ios: true

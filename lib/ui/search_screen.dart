@@ -48,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         hintStyle: myTextTheme.bodyLarge,
                         filled: true,
                         fillColor: greyColor1,
-                        
+
                         border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(20.0),
@@ -139,8 +139,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               );
-            } else {
+            } else if(valueNamePokemon.state == ResultState.error) {
               return const Text("Kosong Datanya kak");
+            } else {
+              return const Text("Data Kosong");
             }
           }),
         ],

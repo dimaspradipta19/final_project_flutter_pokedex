@@ -79,10 +79,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                       .frontDefault,
                                   progressIndicatorBuilder:
                                       (context, url, downloadProgress) =>
-                                          Center(
-                                            child: const CircularProgressIndicator
-                                                .adaptive(),
-                                          ),
+                                          const Center(
+                                    child: CircularProgressIndicator.adaptive(),
+                                  ),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                 ),
