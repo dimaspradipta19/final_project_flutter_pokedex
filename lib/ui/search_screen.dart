@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:flutter/material.dart';
@@ -82,23 +83,24 @@ class _SearchScreenState extends State<SearchScreen> {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
             } else if (valueNamePokemon.state == ResultState.hasData) {
-              return Column(
-                children: [
-                  Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong"),
-                  Text(valueNamePokemon
-                          .dataNamePokemon?.abilities[0].ability.name ??
-                      "Kosong"),
-                  Text(valueNamePokemon.dataNamePokemon?.height.toString() ??
-                      "Kosong"),
-                  Text(valueNamePokemon.dataNamePokemon?.weight.toString() ??
-                      "Kosong"),
-                  Text(valueNamePokemon.dataNamePokemon?.id.toString() ??
-                      "Kosong"),
-                  Text(valueNamePokemon.dataNamePokemon?.stats[0].baseStat
-                          .toString() ??
-                      "Kosong"),
-                ],
-              );
+              return Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong");
+              // return Column(
+              //   children: [
+              //     Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong"),
+              //     Text(valueNamePokemon
+              //             .dataNamePokemon?.abilities[0].ability.name ??
+              //         "Kosong"),
+              //     Text(valueNamePokemon.dataNamePokemon?.height.toString() ??
+              //         "Kosong"),
+              //     Text(valueNamePokemon.dataNamePokemon?.weight.toString() ??
+              //         "Kosong"),
+              //     Text(valueNamePokemon.dataNamePokemon?.id.toString() ??
+              //         "Kosong"),
+              //     Text(valueNamePokemon.dataNamePokemon?.stats[0].baseStat
+              //             .toString() ??
+              //         "Kosong"),
+              //   ],
+              // );
             } else {
               return const Text("Kosong Datanya kak");
             }
