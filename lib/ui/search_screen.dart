@@ -66,6 +66,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       Provider.of<GetNamePokemonProvider>(context,
                               listen: false)
                           .getNamePokemon();
+
+                      var test = Provider.of<GetNamePokemonProvider>(context,
+                          listen: false);
+                      print(test.dataNamePokemon?.toString());
                     },
                     icon: const Icon(Icons.search),
                   ),
@@ -78,8 +82,9 @@ class _SearchScreenState extends State<SearchScreen> {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
             } else if (valueNamePokemon.state == ResultState.hasData) {
-              return Text(valueNamePokemon.dataNamePokemon?.abilities?[0].ability?.name ??
-                  "Kosong");
+              return Text(
+                  valueNamePokemon.dataNamePokemon?.abilities?[0].ability?.name ??
+                      "Kosong");
             } else {
               return const Text("Kosong Datanya kak");
             }

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
-import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+// import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:final_projects_pokemon/widgets/slider_hero_widget.dart';
@@ -76,7 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 } else if (valueAllPokemon.state == ResultState.hasData) {
-                  return ListView.builder(
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 10.0),
                     padding: EdgeInsets.zero,
                     itemCount:
                         valueAllPokemon.pokemonData?.results.length ?? 10,
@@ -87,25 +91,27 @@ class _HomeScreenState extends State<HomeScreen> {
                           log("Pokemon Detail ${index + 1}");
                         },
                         child: Card(
+                          color: secondaryColor,
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Row(
+                            child: Column(
                               children: [
-                                Image.network(
-                                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Image.network(
+                                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                                 const SizedBox(width: 20.0),
                                 Column(
                                   children: [
                                     Text(
                                       "${valueAllPokemon.pokemonData?.results[index].name}",
                                       style: myTextTheme.bodyMedium?.copyWith(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "${valueAllPokemon.pokemonData?.results[index].name}",
-                                      style: myTextTheme.bodyMedium?.copyWith(
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,
+                                          color: whiteColor),
                                     ),
                                   ],
                                 ),
@@ -114,17 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       );
-
-                      // Column(
-                      //   children: [
-                      // Image.network(
-                      //     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"),
-                      // Text(
-                      //     "${valueAllPokemon.pokemonData?.results[index].name}",
-                      //     style: myTextTheme.bodyMedium
-                      //         ?.copyWith(fontWeight: FontWeight.bold)),
-                      //   ],
-                      // );
                     },
                   );
                 } else {
