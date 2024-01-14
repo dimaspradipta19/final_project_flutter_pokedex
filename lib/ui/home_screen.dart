@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/ui/detail_screen.dart';
 // import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
@@ -131,9 +132,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        child: Image.network(
-                                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
-                                          fit: BoxFit.fill,
+                                        // child: Image.network(
+                                        //   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
+                                        //   fit: BoxFit.fill,
+                                        // ),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              const CircularProgressIndicator
+                                                  .adaptive(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                       const SizedBox(width: 20.0),

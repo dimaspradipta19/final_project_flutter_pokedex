@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
@@ -64,10 +65,26 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ),
                               Center(
-                                child: Image.network(
-                                  valueNamePokemon.dataNamePokemon!.sprites
-                                      .other.officialArtwork.frontDefault,
-                                  height: 300,
+                                // child: Image.network(
+                                // valueNamePokemon.dataNamePokemon!.sprites
+                                //     .other.officialArtwork.frontDefault,
+                                //   height: 300,
+                                // ),
+                                child: CachedNetworkImage(
+                                  imageUrl: valueNamePokemon
+                                      .dataNamePokemon!
+                                      .sprites
+                                      .other
+                                      .officialArtwork
+                                      .frontDefault,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Center(
+                                            child: const CircularProgressIndicator
+                                                .adaptive(),
+                                          ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                               ),
                             ],
@@ -108,11 +125,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Chip(
                                       backgroundColor: dominantColor,
-                                      label: Text(valueNamePokemon
-                                          .dataNamePokemon!
-                                          .types[index]
-                                          .type
-                                          .name),
+                                      label: Text(
+                                        valueNamePokemon.dataNamePokemon!
+                                            .types[index].type.name,
+                                        style: myTextTheme.bodyMedium!
+                                            .copyWith(color: greyColor0),
+                                      ),
                                     ),
                                   );
                                 },
@@ -145,11 +163,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Chip(
                                       backgroundColor: dominantColor,
-                                      label: Text(valueNamePokemon
-                                          .dataNamePokemon!
-                                          .abilities[index]
-                                          .ability
-                                          .name),
+                                      label: Text(
+                                        valueNamePokemon.dataNamePokemon!
+                                            .abilities[index].ability.name,
+                                        style: myTextTheme.bodyMedium!
+                                            .copyWith(color: greyColor0),
+                                      ),
                                     ),
                                   );
                                 },
@@ -264,9 +283,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                           ),
                                         ),
                                         child: Center(
-                                          child: Text("${valueNamePokemon
-                                              .dataNamePokemon!.height
-                                              .toString()} Meters"),
+                                          child: Text(
+                                              "${valueNamePokemon.dataNamePokemon!.height.toString()} Meters"),
                                         ),
                                       ),
                                     ],
@@ -296,9 +314,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                           ),
                                         ),
                                         child: Center(
-                                          child: Text("${valueNamePokemon
-                                              .dataNamePokemon!.weight
-                                              .toString()} Kg"),
+                                          child: Text(
+                                              "${valueNamePokemon.dataNamePokemon!.weight.toString()} Kg"),
                                         ),
                                       ),
                                     ],

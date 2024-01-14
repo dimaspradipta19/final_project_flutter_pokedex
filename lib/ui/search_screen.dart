@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+import 'package:final_projects_pokemon/ui/detail_screen.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         hintStyle: myTextTheme.bodyLarge,
                         filled: true,
                         fillColor: greyColor1,
+                        
                         border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(20.0),
@@ -68,9 +70,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               listen: false)
                           .getNamePokemon(_searchController.text);
 
-                      var test = Provider.of<GetNamePokemonProvider>(context,
-                          listen: false);
-                      print(test.dataNamePokemon?.toString());
+                      // var test = Provider.of<GetNamePokemonProvider>(context,
+                      //     listen: false);
+                      // print(test.dataNamePokemon?.toString());
                     },
                     icon: const Icon(Icons.search),
                   ),
@@ -83,24 +85,60 @@ class _SearchScreenState extends State<SearchScreen> {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
             } else if (valueNamePokemon.state == ResultState.hasData) {
-              return Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong");
-              // return Column(
-              //   children: [
-              //     Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong"),
-              //     Text(valueNamePokemon
-              //             .dataNamePokemon?.abilities[0].ability.name ??
-              //         "Kosong"),
-              //     Text(valueNamePokemon.dataNamePokemon?.height.toString() ??
-              //         "Kosong"),
-              //     Text(valueNamePokemon.dataNamePokemon?.weight.toString() ??
-              //         "Kosong"),
-              //     Text(valueNamePokemon.dataNamePokemon?.id.toString() ??
-              //         "Kosong"),
-              //     Text(valueNamePokemon.dataNamePokemon?.stats[0].baseStat
-              //             .toString() ??
-              //         "Kosong"),
-              //   ],
-              // );
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                child: Container(
+                  // height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      CachedNetworkImage(
+                          imageUrl: valueNamePokemon
+                              .dataNamePokemon!.sprites.frontDefault),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            valueNamePokemon.dataNamePokemon!.name,
+                            style: myTextTheme.bodyLarge!
+                                .copyWith(color: whiteColor),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            valueNamePokemon
+                                .dataNamePokemon!.types[0].type.name,
+                            style: myTextTheme.bodyLarge!
+                                .copyWith(color: whiteColor),
+                          ),
+                        ],
+                      ),
+                      Expanded(child: Container()),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return DetailScreen(
+                                  namePokemon:
+                                      valueNamePokemon.dataNamePokemon!.name,
+                                );
+                              },
+                            ));
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            color: whiteColor,
+                          ))
+                    ],
+                  ),
+                ),
+              );
             } else {
               return const Text("Kosong Datanya kak");
             }
