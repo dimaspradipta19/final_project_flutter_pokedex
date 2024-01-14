@@ -26,8 +26,8 @@ class NamePokemonModel {
   final int order;
   final List<dynamic> pastAbilities;
   final List<dynamic> pastTypes;
-  final Species species;
-  final Sprites sprites;
+  final Species? species;
+  final Sprites? sprites;
   // final List<Stat> stats;
   // final List<Type> types;
   final int weight;
@@ -47,8 +47,8 @@ class NamePokemonModel {
     required this.order,
     required this.pastAbilities,
     required this.pastTypes,
-    required this.species,
-    required this.sprites,
+    this.species,
+    this.sprites,
     // required this.stats,
     // required this.types,
     required this.weight,
@@ -75,6 +75,7 @@ class NamePokemonModel {
         pastAbilities: List<dynamic>.from(json["past_abilities"].map((x) => x)),
         pastTypes: List<dynamic>.from(json["past_types"].map((x) => x)),
         species: Species.fromJson(json["species"]),
+        // NOTE: sprites key are dynamic, need to adjust to non required / only get the needed Model
         sprites: Sprites.fromJson(json["sprites"]),
         // stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
         // types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
@@ -96,8 +97,8 @@ class NamePokemonModel {
         "order": order,
         "past_abilities": List<dynamic>.from(pastAbilities.map((x) => x)),
         "past_types": List<dynamic>.from(pastTypes.map((x) => x)),
-        "species": species.toJson(),
-        "sprites": sprites.toJson(),
+        "species": species?.toJson(),
+        "sprites": sprites?.toJson(),
         // "stats": List<dynamic>.from(stats.map((x) => x.toJson())),
         // "types": List<dynamic>.from(types.map((x) => x.toJson())),
         "weight": weight,
@@ -382,9 +383,9 @@ class Sprites {
   final String frontFemale;
   final String frontShiny;
   final String frontShinyFemale;
-  final Other other;
+  final Other? other;
   // final Versions versions;
-  final Sprites animated;
+  final Sprites? animated;
 
   Sprites({
     required this.backDefault,
@@ -395,9 +396,9 @@ class Sprites {
     required this.frontFemale,
     required this.frontShiny,
     required this.frontShinyFemale,
-    required this.other,
+    this.other,
     // required this.versions,
-    required this.animated,
+    this.animated,
   });
 
   factory Sprites.fromJson(Map<String, dynamic> json) => Sprites(
@@ -409,9 +410,13 @@ class Sprites {
         frontFemale: json["front_female"] ?? "",
         frontShiny: json["front_shiny"] ?? "",
         frontShinyFemale: json["front_shiny_female"] ?? "",
-        other: Other.fromJson(json["other"]),
+        // NOTE: Data is very dynamic, need to consider the preferred format
+        other: null,
+        // other: json["other"] ? Other.fromJson(json["other"]) : null,
         // versions: Versions.fromJson(json["versions"]),
-        animated: Sprites.fromJson(json["animated"]),
+        // NOTE: Data is very dynamic, need to consider the preferred format
+        animated: null,
+        // animated: json["animated"] ? Sprites.fromJson(json["animated"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -423,9 +428,9 @@ class Sprites {
         "front_female": frontFemale,
         "front_shiny": frontShiny,
         "front_shiny_female": frontShinyFemale,
-        "other": other.toJson(),
+        "other": other?.toJson(),
         // "versions": versions.toJson(),
-        "animated": animated.toJson(),
+        "animated": animated?.toJson(),
       };
 }
 

@@ -1,4 +1,5 @@
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+import 'package:final_projects_pokemon/main.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,17 +62,27 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: IconButton(
-                    onPressed: () {
-                      Provider.of<GetNamePokemonProvider>(context,
-                              listen: false)
-                          .getNamePokemon();
+                  child: Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Provider.of<GetNamePokemonProvider>(context,
+                                  listen: false)
+                              .getNamePokemon();
 
-                      var test = Provider.of<GetNamePokemonProvider>(context,
-                          listen: false);
-                      print(test.dataNamePokemon?.toString());
-                    },
-                    icon: const Icon(Icons.search),
+                          // var test = Provider.of<GetNamePokemonProvider>(context,
+                          //     listen: false);
+                          // print(test.dataNamePokemon?.toString());
+                        },
+                        icon: const Icon(Icons.search),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          alice.showInspector();
+                        },
+                        icon: const Icon(Icons.show_chart),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -82,9 +93,15 @@ class _SearchScreenState extends State<SearchScreen> {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
             } else if (valueNamePokemon.state == ResultState.hasData) {
-              return Text(
-                  valueNamePokemon.dataNamePokemon?.abilities?[0].ability?.name ??
-                      "Kosong");
+              var value = '';
+              try {
+                value = valueNamePokemon
+                        .dataNamePokemon?.abilities.first.ability.name ??
+                    "Kosong";
+              } catch (e) {
+                value = "Kosong";
+              }
+              return Text(value);
             } else {
               return const Text("Kosong Datanya kak");
             }
