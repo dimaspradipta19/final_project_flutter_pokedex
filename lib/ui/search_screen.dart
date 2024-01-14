@@ -82,9 +82,20 @@ class _SearchScreenState extends State<SearchScreen> {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
             } else if (valueNamePokemon.state == ResultState.hasData) {
-              return Text(
-                  valueNamePokemon.dataNamePokemon?.abilities?[0].ability?.name ??
-                      "Kosong");
+              return Column(
+                children: [
+                  Text(valueNamePokemon.dataNamePokemon?.name ?? "Kosong"),
+                  Text(valueNamePokemon
+                          .dataNamePokemon?.abilities[0].ability.name ??
+                      "Kosong"),
+                  Text(valueNamePokemon.dataNamePokemon?.height.toString() ??
+                      "Kosong"),
+                  Text(valueNamePokemon.dataNamePokemon?.weight.toString() ??
+                      "Kosong"),
+                  Text(valueNamePokemon.dataNamePokemon?.id.toString() ??
+                      "Kosong"),
+                ],
+              );
             } else {
               return const Text("Kosong Datanya kak");
             }
