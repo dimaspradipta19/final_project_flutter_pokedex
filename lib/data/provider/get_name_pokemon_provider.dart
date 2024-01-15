@@ -25,5 +25,6 @@ class GetNamePokemonProvider extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
+    notifyListeners();
   }
 }

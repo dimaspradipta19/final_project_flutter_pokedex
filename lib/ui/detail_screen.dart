@@ -65,11 +65,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ),
                               Center(
-                                // child: Image.network(
-                                // valueNamePokemon.dataNamePokemon!.sprites
-                                //     .other.officialArtwork.frontDefault,
-                                //   height: 300,
-                                // ),
                                 child: CachedNetworkImage(
                                   imageUrl: valueNamePokemon
                                       .dataNamePokemon!

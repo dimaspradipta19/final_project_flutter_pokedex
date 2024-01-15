@@ -41,6 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Form(
                     key: _formKey,
                     child: TextFormField(
+                      autofocus: true,
                       controller: _searchController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
@@ -69,10 +70,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       Provider.of<GetNamePokemonProvider>(context,
                               listen: false)
                           .getNamePokemon(_searchController.text);
-
-                      // var test = Provider.of<GetNamePokemonProvider>(context,
-                      //     listen: false);
-                      // print(test.dataNamePokemon?.toString());
                     },
                     icon: const Icon(Icons.search),
                   ),
@@ -84,7 +81,8 @@ class _SearchScreenState extends State<SearchScreen> {
               (context, GetNamePokemonProvider valueNamePokemon, child) {
             if (valueNamePokemon.state == ResultState.isLoading) {
               return const CircularProgressIndicator.adaptive();
-            } else if (valueNamePokemon.state == ResultState.hasData) {
+            } else if (valueNamePokemon.state == ResultState.hasData ||
+                _searchController.text.isNotEmpty) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 20.0),
@@ -139,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               );
-            } else if(valueNamePokemon.state == ResultState.error) {
+            } else if (valueNamePokemon.state == ResultState.error) {
               return const Text("Kosong Datanya kak");
             } else {
               return const Text("Data Kosong");
