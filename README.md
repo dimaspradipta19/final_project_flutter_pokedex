@@ -11,7 +11,7 @@ This is a final project 2 for Specialization Front End Developer using Flutter. 
 The purpose of this projects are 
 
 1. to understand how to build multiplatform application using Flutter Framework and
-2. also learn how to layouting with Flutter Widget from scratch design. 
+2. also learn how to layouting with Flutter Widget and implementing design from scratch. 
 3. Learn basic state management and also using advance state management like BLoC and Provider to managing the state from our App.
 
 This Pokedex is created using public API to serving the Data like pokemon name, image, ability, and also about the type of Pokemon we search.
