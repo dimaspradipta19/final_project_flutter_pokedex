@@ -12,7 +12,6 @@ Future main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -23,25 +22,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => GetNamePokemonProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => GetAllPokemonProvider(),
-        // ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Pokedex Flutter',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         home: const SplashScreen(),
-        // initialRoute: "/",
-        // routes: {
-        //   "/splashscreen": (context) => const SplashScreen(),
-        //   "/homescreen": (context) => const HomeScreen(),
-        //   "/searchscreen": (context) => const SearchScreen(),
-        //   "/detailscreen": (context) => const DetailScreen(namePokemon: namePokemon),
-        // },
       ),
     );
   }

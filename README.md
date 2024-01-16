@@ -1,16 +1,22 @@
-# final_projects_pokemon
+# Final Project Specialization Front End using Flutter
 
-A new Flutter project.
+This is a final project 2 for Specialization Front End Developer using Flutter. this project is created by group 4 with the participants are:
 
-## Getting Started
+1. Alifia Shafira
+2. Dimas Pradipta
+3. Fatimah Azzahra
 
-This project is a starting point for a Flutter application.
+## About this project
 
-A few resources to get you started if this is your first Flutter project:
+The purpose of this projects are 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. to understand how to build multiplatform application using Flutter Framework and
+2. also learn how to layouting with Flutter Widget from scratch design. 
+3. Learn basic state management and also using advance state management like BLoC and Provider to managing the state from our App.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This Pokedex is created using public API to serving the Data like pokemon name, image, ability, and also about the type of Pokemon we search.
+
+
+## This is our design created by group 4.
+https://www.figma.com/file/oxDXzerTZmNleNKIRUu6V5/Pokemon?type=design&node-id=44-129&mode=design&t=lSzKeFfGiSw7Xqiw-0
+

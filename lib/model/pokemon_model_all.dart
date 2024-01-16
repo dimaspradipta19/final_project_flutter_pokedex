@@ -1,16 +1,3 @@
-// To parse this JSON data, do
-//
-//     final pokemonAllModel = pokemonAllModelFromJson(jsonString);
-
-// import 'package:meta/meta.dart';
-// import 'dart:convert';
-
-// PokemonAllModel pokemonAllModelFromJson(String str) =>
-//     PokemonAllModel.fromJson(json.decode(str));
-
-// String pokemonAllModelToJson(PokemonAllModel data) =>
-//     json.encode(data.toJson());
-
 class PokemonAllModel {
   final int count;
   final String next;
