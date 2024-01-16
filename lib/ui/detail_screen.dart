@@ -7,6 +7,9 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/background_detail_rounded_widget.dart';
+import '../widgets/navbar_detail_screen_widget.dart';
+
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.namePokemon});
 
@@ -29,21 +32,14 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Detail Screen pokemon"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: Image.asset("assets/images/pokeball.png",
-                width: 35.0, height: 35.0),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Consumer<GetNamePokemonProvider>(
           builder: (context, GetNamePokemonProvider valueNamePokemon, child) {
             if (valueNamePokemon.state == ResultState.isLoading) {
-              return const Center(child: CircularProgressIndicator.adaptive());
+              return const Padding(
+                padding: EdgeInsets.only(top: 200.0),
+                child: Center(child: CircularProgressIndicator.adaptive()),
+              );
             } else if (valueNamePokemon.state == ResultState.hasData) {
               return FutureBuilder(
                   future: PaletteGenerator.fromImageProvider(
@@ -59,36 +55,31 @@ class _DetailScreenState extends State<DetailScreen> {
                         children: [
                           Stack(
                             children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(300.0),
-                                    bottomRight: Radius.circular(300.0)),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 250.0,
-                                  decoration: BoxDecoration(
-                                    color: dominantColor,
+                              BackgroundDetailRoundedWidget(
+                                  dominantColor: dominantColor),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 50.0),
+                                child: Center(
+                                  child: CachedNetworkImage(
+                                    height: 260.0,
+                                    imageUrl: valueNamePokemon
+                                        .dataNamePokemon!
+                                        .sprites
+                                        .other
+                                        .officialArtwork
+                                        .frontDefault,
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive(),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                 ),
                               ),
-                              Center(
-                                child: CachedNetworkImage(
-                                  height: 260.0,
-                                  imageUrl: valueNamePokemon
-                                      .dataNamePokemon!
-                                      .sprites
-                                      .other
-                                      .officialArtwork
-                                      .frontDefault,
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
-                                          const Center(
-                                    child: CircularProgressIndicator.adaptive(),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              ),
+                              const NavbarDetailScreenWidget(),
                             ],
                           ),
                           //Name Pokemon
@@ -269,10 +260,17 @@ class _DetailScreenState extends State<DetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Height:",
-                                        style: myTextTheme.bodyLarge!.copyWith(
-                                            fontWeight: FontWeight.bold),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.height),
+                                          Text(
+                                            "Height:",
+                                            style: myTextTheme.bodyLarge!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(height: 20.0),
                                       Container(
@@ -300,10 +298,17 @@ class _DetailScreenState extends State<DetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Weight:",
-                                        style: myTextTheme.bodyLarge!.copyWith(
-                                            fontWeight: FontWeight.bold),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.adjust_outlined),
+                                          Text(
+                                            "Weight:",
+                                            style: myTextTheme.bodyLarge!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(height: 20.0),
                                       Container(
