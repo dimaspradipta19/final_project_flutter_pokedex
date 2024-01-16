@@ -31,6 +31,13 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Screen pokemon"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Image.asset("assets/images/pokeball.png",
+                width: 35.0, height: 35.0),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Consumer<GetNamePokemonProvider>(
@@ -54,11 +61,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             children: [
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(160.0),
-                                    bottomRight: Radius.circular(160.0)),
+                                    bottomLeft: Radius.circular(300.0),
+                                    bottomRight: Radius.circular(300.0)),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  height: 300.0,
+                                  height: 250.0,
                                   decoration: BoxDecoration(
                                     color: dominantColor,
                                   ),
@@ -66,6 +73,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Center(
                                 child: CachedNetworkImage(
+                                  height: 260.0,
                                   imageUrl: valueNamePokemon
                                       .dataNamePokemon!
                                       .sprites
@@ -219,6 +227,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                               flex: 6,
                                               child: LinearPercentIndicator(
                                                 animation: true,
+                                                barRadius:
+                                                    const Radius.circular(10.0),
                                                 lineHeight: 20.0,
                                                 animationDuration: 2500,
                                                 percent: (valueNamePokemon

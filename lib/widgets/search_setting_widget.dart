@@ -23,9 +23,9 @@ class SearchSettingWidget extends StatelessWidget {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   hintText: "Search Pokemon",
-                  hintStyle: myTextTheme.bodyLarge,
+                  hintStyle: myTextTheme.bodyLarge!.copyWith(color: greyColor3),
                   filled: true,
-                  fillColor: greyColor1,
+                  fillColor: Colors.grey[200],
                   border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(20.0),
@@ -33,7 +33,7 @@ class SearchSettingWidget extends StatelessWidget {
                       borderSide: BorderSide.none),
                   prefixIcon: const Icon(
                     Icons.search,
-                    color: whiteColor,
+                    color: greyColor2,
                   ),
                 ),
                 readOnly: true,
@@ -59,9 +59,11 @@ class SearchSettingWidget extends StatelessWidget {
                   Radius.circular(20.0),
                 ),
               ),
-              child: const Icon(
-                Icons.settings_input_composite_outlined,
-                color: greyColor3,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset(
+                  "assets/images/icon_filter.png",
+                ),
               ),
             ),
           )

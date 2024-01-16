@@ -12,7 +12,7 @@ class LogoWidget extends StatelessWidget {
       child: Center(
         child: Image.asset(
           "assets/images/pokemon_logo.png",
-          width: 120,
+          width: 250.0,
         ),
       ),
     );

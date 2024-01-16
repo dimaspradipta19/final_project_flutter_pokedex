@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/ui/detail_screen.dart';
-// import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:final_projects_pokemon/widgets/slider_hero_widget.dart';
@@ -93,8 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10.0,
-                              mainAxisSpacing: 10.0),
+                              crossAxisSpacing: 5.0,
+                              mainAxisSpacing: 20.0,
+                              childAspectRatio: 1.5),
                       padding: EdgeInsets.zero,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount:
@@ -126,29 +126,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: dominantColor,
                                   child: Column(
                                     children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
-                                        progressIndicatorBuilder:
-                                            (context, url, downloadProgress) =>
-                                                const CircularProgressIndicator
-                                                    .adaptive(),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
+                                      Expanded(
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              const CircularProgressIndicator
+                                                  .adaptive(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 50,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                          child: Text(
-                                            "${valueAllPokemon.pokemonData?.results[index].name}",
-                                            style: myTextTheme.bodyMedium
-                                                ?.copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20,
-                                                    color: whiteColor),
-                                          ),
+                                      Center(
+                                        child: Text(
+                                          "${valueAllPokemon.pokemonData?.results[index].name}",
+                                          style: myTextTheme.bodyMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                  color: whiteColor),
                                         ),
                                       ),
                                     ],
