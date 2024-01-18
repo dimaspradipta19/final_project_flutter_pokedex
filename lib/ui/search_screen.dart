@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
-import 'package:final_projects_pokemon/ui/detail_screen.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
