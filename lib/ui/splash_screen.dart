@@ -1,4 +1,3 @@
-import 'package:final_projects_pokemon/ui/home_screen.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +10,8 @@ class SplashScreen extends StatelessWidget {
     return Future.delayed(
       const Duration(seconds: 2),
       () {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-          builder: (context) {
-            return const HomeScreen();
-          },
-        ), (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context, "/homescreen", (route) => false);
       },
     );
   }

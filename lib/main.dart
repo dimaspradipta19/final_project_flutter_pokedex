@@ -1,5 +1,8 @@
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
+import 'package:final_projects_pokemon/ui/detail_screen.dart';
+import 'package:final_projects_pokemon/ui/home_screen.dart';
+import 'package:final_projects_pokemon/ui/search_screen.dart';
 import 'package:final_projects_pokemon/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +33,14 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const SplashScreen(),
+        // home: const SplashScreen(),
+        initialRoute: "/",
+        routes: {
+          "/": (context) => const SplashScreen(),
+          "/homescreen": (context) => const HomeScreen(),
+          "/searchscreen": (context) => const SearchScreen(),
+          "/detailscreen": (context) => const DetailScreen(),
+        },
       ),
     );
   }

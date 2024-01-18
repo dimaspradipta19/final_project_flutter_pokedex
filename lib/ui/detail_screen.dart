@@ -11,26 +11,41 @@ import '../widgets/background_detail_rounded_widget.dart';
 import '../widgets/navbar_detail_screen_widget.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key, required this.namePokemon});
+  const DetailScreen({
+    super.key,
+    // required this.namePokemon,
+  });
 
-  final String namePokemon;
+  // final String namePokemon;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GetNamePokemonProvider>(context, listen: false)
-          .getNamePokemon(widget.namePokemon);
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     Provider.of<GetNamePokemonProvider>(context, listen: false)
+  //         .getNamePokemon(widget.namePokemon);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // Access the arguments from ModalRoute
+      final Map<String, dynamic> arguments =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+      // Extract the Pokemon name from the arguments
+      var namePokemon = arguments['namePokemon'];
+
+      Provider.of<GetNamePokemonProvider>(context, listen: false)
+          .getNamePokemon(namePokemon);
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Consumer<GetNamePokemonProvider>(

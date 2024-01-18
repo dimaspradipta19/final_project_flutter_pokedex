@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
-import 'package:final_projects_pokemon/ui/detail_screen.dart';
 import 'package:final_projects_pokemon/utils/enum_result.dart';
 import 'package:final_projects_pokemon/utils/styles_guide.dart';
 import 'package:final_projects_pokemon/widgets/slider_hero_widget.dart';
@@ -103,13 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return DetailScreen(
-                                    namePokemon: valueAllPokemon
-                                        .pokemonData!.results[index].name);
-                              },
-                            ));
+                            Navigator.pushNamed(context, "/detailscreen",
+                                arguments: {
+                                  "namePokemon": valueAllPokemon
+                                      .pokemonData!.results[index].name
+                                });
                           },
                           child: FutureBuilder(
                             future: PaletteGenerator.fromImageProvider(

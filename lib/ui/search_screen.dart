@@ -192,14 +192,11 @@ class _SearchScreenState extends State<SearchScreen> {
                               Expanded(child: Container()),
                               IconButton(
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) {
-                                        return DetailScreen(
-                                          namePokemon: valueNamePokemon
-                                              .dataNamePokemon!.name,
-                                        );
-                                      },
-                                    ));
+                                    Navigator.pushNamed(
+                                        context, "/detailscreen", arguments: {
+                                      "namePokemon":
+                                          valueNamePokemon.dataNamePokemon!.name
+                                    });
                                   },
                                   icon: const Icon(
                                     Icons.arrow_forward_ios_outlined,
