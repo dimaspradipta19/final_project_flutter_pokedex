@@ -7,6 +7,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../data/provider/favorite_provider.dart';
 import '../widgets/background_detail_rounded_widget.dart';
 import '../widgets/navbar_detail_screen_widget.dart';
 
@@ -31,6 +32,8 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favProvider =
+        Provider.of<FavoritePokemonProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Consumer<GetNamePokemonProvider>(
@@ -86,10 +89,22 @@ class _DetailScreenState extends State<DetailScreen> {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Text(
-                              valueNamePokemon.dataNamePokemon!.name,
-                              style: myTextTheme.headlineMedium!.copyWith(
-                                  fontWeight: FontWeight.bold, fontSize: 38.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  valueNamePokemon.dataNamePokemon!.name,
+                                  style: myTextTheme.headlineMedium!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 38.0),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      favProvider.addPokemon(
+                                          valueNamePokemon.dataNamePokemon!);
+                                    },
+                                    icon: const Icon(
+                                        Icons.favorite_border_outlined))
+                              ],
                             ),
                           ),
                           // Type pokemon

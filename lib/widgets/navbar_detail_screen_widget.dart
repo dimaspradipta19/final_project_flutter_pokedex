@@ -28,7 +28,12 @@ class NavbarDetailScreenWidget extends StatelessWidget {
             SizedBox(
               width: 35,
               height: 35,
-              child: Image.asset("assets/images/pokeball.png"),
+              child: InkWell(
+                onTap: () {
+                  print("Fav Pokemon");
+                },
+                child: Image.asset("assets/images/pokeball.png"),
+              ),
             ),
           ],
         ),

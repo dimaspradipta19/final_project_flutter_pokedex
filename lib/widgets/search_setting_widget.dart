@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:final_projects_pokemon/ui/fav_pokemon_screen.dart';
 import 'package:final_projects_pokemon/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +47,14 @@ class SearchSettingWidget extends StatelessWidget {
           const SizedBox(width: 12.0),
           InkWell(
             onTap: () {
-              log("Button Setting");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const FavoritePokemonScreen();
+                  },
+                ),
+              );
             },
             child: Container(
               height: 48.0,
@@ -59,11 +65,9 @@ class SearchSettingWidget extends StatelessWidget {
                   Radius.circular(20.0),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image.asset(
-                  "assets/images/icon_filter.png",
-                ),
+              child: const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(Icons.favorite_outline, color: redColor1),
               ),
             ),
           )

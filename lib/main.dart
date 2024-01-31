@@ -1,3 +1,4 @@
+import 'package:final_projects_pokemon/data/provider/favorite_provider.dart';
 import 'package:final_projects_pokemon/data/provider/get_all_pokemon_provider.dart';
 import 'package:final_projects_pokemon/data/provider/get_name_pokemon_provider.dart';
 import 'package:final_projects_pokemon/ui/splash_screen.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => GetNamePokemonProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoritePokemonProvider(),
         ),
       ],
       child: MaterialApp(
